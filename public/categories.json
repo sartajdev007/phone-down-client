@@ -1,0 +1,17 @@
+[
+    {
+        "category_id": 1,
+        "name": "Apple",
+        "img": "https://cdn.icon-icons.com/icons2/2699/PNG/512/apple_logo_icon_168588.png"
+    },
+    {
+        "category_id": 2,
+        "name": "Samsung",
+        "img": "https://i.ibb.co/PWZhhgC/5a355b5ad2c9a3-2366288215134462348634.png"
+    },
+    {
+        "category_id": 3,
+        "name": "Xiomi",
+        "img": "https://logos-world.net/wp-content/uploads/2020/05/Xiaomi-Logo.png"
+    }
+]
