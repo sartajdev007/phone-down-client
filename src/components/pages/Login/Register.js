@@ -1,30 +1,42 @@
 import React from 'react';
 import { useState } from 'react';
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
 
 const Register = () => {
     const { createUser, updateUserProfile } = useContext(AuthContext)
     const [error, setError] = useState('')
+    const navigate = useNavigate()
 
     const handleSubmit = e => {
         e.preventDefault()
         const form = e.target;
         const name = form.name.value;
-        const photoURL = form.photoURL.value
         const email = form.email.value;
         const role = form.role.value;
         const password = form.password.value;
 
-        console.log(name, email, photoURL, role)
-
+        // console.log(name, email, role)
+        setError('')
         createUser(email, password)
             .then(result => {
                 const user = result.user
-                console.log(user)
+                toast.success('Registration successful')
+                const profile = {
+                    displayName: name,
+                    email: email,
+                    role: role,
+                };
+                console.log(profile)
+                updateUserProfile(profile)
+                    .then(() => {
+                        saveUser(name, email, role)
+                    })
+                    .catch(e => console.log(e))
                 form.reset()
-                handleUpdateUserProfile(name, photoURL)
+                navigate('/')
             })
             .catch(error => {
                 console.error(error)
@@ -32,14 +44,19 @@ const Register = () => {
             })
     }
 
-    const handleUpdateUserProfile = (name, photoURL) => {
-        const profile = {
-            displayName: name,
-            photo: photoURL
-        }
-        updateUserProfile(profile)
-            .then(() => { })
-            .catch(e => console.log(e))
+    const saveUser = (name, email, role) => {
+        const user = { name, email, role }
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+            })
     }
 
 
@@ -59,22 +76,9 @@ const Register = () => {
                                 Name
                             </label>
                             <input
-                                type="name"
+                                type="text"
                                 required
                                 name='name'
-                                className="block w-full px-4 py-2 mt-2 text-green-700 bg-white border rounded-md focus:border-green-400 focus:ring-green-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                            />
-                        </div>
-                        <div className="mb-2">
-                            <label
-                                htmlFor="photourl"
-                                className="block text-sm font-semibold text-gray-800"
-                            >
-                                PhotoURL
-                            </label>
-                            <input
-                                type="text"
-                                name='photoURL'
                                 className="block w-full px-4 py-2 mt-2 text-green-700 bg-white border rounded-md focus:border-green-400 focus:ring-green-300 focus:outline-none focus:ring focus:ring-opacity-40"
                             />
                         </div>
@@ -98,8 +102,8 @@ const Register = () => {
                             </label>
                             <select name='role' className="select select-bordered block w-full px-4 py-2 mt-2 text-green-700 bg-white border rounded-md focus:border-green-400 focus:ring-green-300 focus:outline-none focus:ring focus:ring-opacity-40">
                                 <option disabled selected>Pick one</option>
-                                <option>Seller</option>
-                                <option>Buyer</option>
+                                <option value='seller'>Seller</option>
+                                <option value='buyer'>Buyer</option>
                             </select>
                         </div>
                         <div className="mb-2">
@@ -132,6 +136,7 @@ const Register = () => {
                         >
                             Login
                         </Link>
+                        <Toaster></Toaster>
                     </p>
                 </div>
             </div>
