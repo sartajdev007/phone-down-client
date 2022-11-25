@@ -1,8 +1,19 @@
-import React from 'react';
+import userEvent from '@testing-library/user-event';
+import React, { useContext } from 'react';
 import { FcSmartphoneTablet } from 'react-icons/fc';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthProvider';
 
 const Header = () => {
+    const { user, logOut } = useContext(AuthContext)
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => { })
+            .catch(err => console.log(err))
+    }
+
+
     return (
         <div className="navbar bg-base-100">
             <div className="navbar-start">
@@ -45,8 +56,18 @@ const Header = () => {
                 </ul>
             </div>
             <div className="navbar-end gap-3">
-                <Link to='/login' className="btn">Login</Link>
-                <Link to='/register' className="btn">Register</Link>
+                {
+                    user?.uid ?
+                        <>
+                            <Link to='/dashboard' className='btn'>Dashboard</Link>
+                            <Link><button onClick={handleLogOut} className='btn'>Log Out</button></Link>
+                        </>
+                        :
+                        <>
+                            <Link to='/login' className="btn">Login</Link>
+                            <Link to='/register' className="btn">Register</Link>
+                        </>
+                }
             </div>
         </div>
     );

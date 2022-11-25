@@ -14,7 +14,10 @@ const Register = () => {
         const name = form.name.value;
         const photoURL = form.photoURL.value
         const email = form.email.value;
+        const role = form.role.value;
         const password = form.password.value;
+
+        console.log(name, email, photoURL, role)
 
         createUser(email, password)
             .then(result => {
@@ -50,7 +53,7 @@ const Register = () => {
                     <form onSubmit={handleSubmit} className="mt-6">
                         <div className="mb-2">
                             <label
-                                for="name"
+                                htmlFor="name"
                                 className="block text-sm font-semibold text-gray-800"
                             >
                                 Name
@@ -64,7 +67,7 @@ const Register = () => {
                         </div>
                         <div className="mb-2">
                             <label
-                                for="photourl"
+                                htmlFor="photourl"
                                 className="block text-sm font-semibold text-gray-800"
                             >
                                 PhotoURL
@@ -77,7 +80,7 @@ const Register = () => {
                         </div>
                         <div className="mb-2">
                             <label
-                                for="email"
+                                htmlFor="email"
                                 className="block text-sm font-semibold text-gray-800"
                             >
                                 Email
@@ -88,9 +91,20 @@ const Register = () => {
                                 className="block w-full px-4 py-2 mt-2 text-green-700 bg-white border rounded-md focus:border-green-400 focus:ring-green-300 focus:outline-none focus:ring focus:ring-opacity-40"
                             />
                         </div>
+                        <div className="form-control w-full max-w-xs">
+                            <label
+                                className="block text-sm text-center font-semibold text-gray-800">
+                                Select your role
+                            </label>
+                            <select name='role' className="select select-bordered block w-full px-4 py-2 mt-2 text-green-700 bg-white border rounded-md focus:border-green-400 focus:ring-green-300 focus:outline-none focus:ring focus:ring-opacity-40">
+                                <option disabled selected>Pick one</option>
+                                <option>Seller</option>
+                                <option>Buyer</option>
+                            </select>
+                        </div>
                         <div className="mb-2">
                             <label
-                                for="password"
+                                htmlFor="password"
                                 className="block text-sm font-semibold text-gray-800"
                             >
                                 Password
@@ -116,7 +130,7 @@ const Register = () => {
                         <Link to='/login'
                             className="font-medium text-green-700 hover:text-green-400"
                         >
-                            Sign in
+                            Login
                         </Link>
                     </p>
                 </div>
