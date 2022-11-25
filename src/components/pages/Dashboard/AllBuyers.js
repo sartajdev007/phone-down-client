@@ -27,7 +27,7 @@ const AllBuyers = () => {
                                     <td>{buyer.name}</td>
                                     <td>{buyer.email}</td>
                                     <td>{buyer.role}</td>
-                                    <td><button className='btn btn-xs bg-blue-400'>Make Admin</button></td>
+                                    <td>{buyer?.status !== 'admin' ? <button className='btn btn-xs bg-blue-400'>Make Admin</button> : <span className='text-green-500'>Admin</span>}</td>
                                     <td><button className='btn btn-xs bg-red-400'>Delete</button></td>
                                 </tr>)
                         }

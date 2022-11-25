@@ -3,6 +3,7 @@ import DashboardLayout from "../layout/DashboardLayout";
 import Main from "../layout/Main";
 import AllBuyers from "../pages/Dashboard/AllBuyers";
 import AllSellers from "../pages/Dashboard/AllSellers";
+import AllUsers from "../pages/Dashboard/AllUsers";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
@@ -36,6 +37,12 @@ const router = createBrowserRouter([
                 path: '/dashboard',
                 element: <Dashboard></Dashboard>
             },
+
+            {
+                path: '/dashboard/allusers',
+                element: <AllUsers></AllUsers>
+            },
+
             {
                 path: '/dashboard/allbuyers',
                 element: <AllBuyers></AllBuyers>,
