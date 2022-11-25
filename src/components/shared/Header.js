@@ -44,7 +44,7 @@ const Header = () => {
                     <li><Link>Item 3</Link></li>
                 </ul>
             </div>
-            <div className="navbar-end">
+            <div className="navbar-end gap-3">
                 <Link className="btn">Login</Link>
                 <Link className="btn">Register</Link>
             </div>
