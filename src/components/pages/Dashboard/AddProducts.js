@@ -1,13 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import Loader from '../../shared/Loader';
 
 const AddProducts = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const imgHostKey = process.env.REACT_APP_imgbb_key
-
+    const navigate = useNavigate()
 
     const { data: categories, isLoading } = useQuery({
         queryKey: ['category'],
@@ -39,7 +40,22 @@ const AddProducts = () => {
                         details: data.description,
                         image: imgData.data.url
                     }
-                    console.log(product)
+                    // add product to db
+                    fetch('http://localhost:5000/products', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(product)
+                    })
+                        .then(res => res.json())
+                        .then(result => {
+                            if (result.acknowledged) {
+                                toast.success(`${data.name} is added in the shop`)
+                                navigate('/dashboard/myproducts')
+                            }
+                        })
+
                 }
             })
     }
@@ -79,7 +95,7 @@ const AddProducts = () => {
                         <option disabled selected>Category</option>
                         {
                             categories.map(category => <option
-                                key={category._id}
+                                key={category.category_id}
                                 value={category.name}
                             >{category.name}</option>)
                         }
