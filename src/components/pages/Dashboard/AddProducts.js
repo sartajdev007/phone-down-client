@@ -6,6 +6,8 @@ import Loader from '../../shared/Loader';
 
 const AddProducts = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
+    const imgHostKey = process.env.REACT_APP_imgbb_key
+
 
     const { data: categories, isLoading } = useQuery({
         queryKey: ['category'],
@@ -17,7 +19,29 @@ const AddProducts = () => {
     })
 
     const handleAddProduct = data => {
-
+        const image = data.image[0];
+        const formData = new FormData()
+        formData.append('image', image)
+        const url = `https://api.imgbb.com/1/upload?key=${imgHostKey}`
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(imgData => {
+                if (imgData.success) {
+                    const product = {
+                        name: data.name,
+                        price: data.price,
+                        category: data.category,
+                        condition: data.condition,
+                        location: data.location,
+                        details: data.description,
+                        image: imgData.data.url
+                    }
+                    console.log(product)
+                }
+            })
     }
 
     if (isLoading) {
@@ -50,7 +74,7 @@ const AddProducts = () => {
                         <span className="label-text">Product Category</span>
                     </label>
                     <select
-                        {...register("specialty")}
+                        {...register("category")}
                         className="select select-ghost w-96 input-bordered">
                         <option disabled selected>Category</option>
                         {
@@ -94,7 +118,7 @@ const AddProducts = () => {
                     <input type="file"
                         placeholder="Photo"
                         className="input input-bordered w-full py-2"
-                        {...register("img")} />
+                        {...register("image")} />
                 </div>
                 <div className="form-control w-96">
                     <label className="label">
@@ -105,7 +129,7 @@ const AddProducts = () => {
                         className="textarea textarea-bordered w-96"
                         {...register("description")} />
                 </div>
-                <input className='btn btn-accent mt-5' type="submit" value='Add Doctor' />
+                <input className='btn btn-accent mt-5' type="submit" value='Add Product' />
                 <Toaster></Toaster>
             </form>
         </div>
