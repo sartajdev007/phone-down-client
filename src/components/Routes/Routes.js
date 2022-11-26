@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../layout/DashboardLayout";
 import Main from "../layout/Main";
+import AddProducts from "../pages/Dashboard/AddProducts";
 import AllBuyers from "../pages/Dashboard/AllBuyers";
 import AllSellers from "../pages/Dashboard/AllSellers";
 import AllUsers from "../pages/Dashboard/AllUsers";
@@ -8,6 +9,7 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Login/Register";
+import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
@@ -50,8 +52,13 @@ const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/allsellers',
-                element: <AllSellers></AllSellers>
+                element: <AllSellers></AllSellers>,
+                loader: () => fetch('http://localhost:5000/users/allsellers')
             },
+            {
+                path: '/dashboard/addproducts',
+                element: <AddProducts></AddProducts>
+            }
         ]
     }
 ])

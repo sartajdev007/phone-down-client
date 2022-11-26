@@ -53,6 +53,12 @@ const Header = () => {
                         </ul>
                     </li>
                     <li><Link>Item 3</Link></li>
+                    {
+                        user?.role === 'seller' &&
+                        <>
+                            <li><Link>Add Products</Link></li>
+                        </>
+                    }
                 </ul>
             </div>
             <div className="navbar-end gap-3">
