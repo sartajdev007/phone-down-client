@@ -1,11 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthProvider';
 import Loader from '../../shared/Loader';
 
 const AddProducts = () => {
+    const { user } = useContext(AuthContext)
     const { register, formState: { errors }, handleSubmit } = useForm();
     const imgHostKey = process.env.REACT_APP_imgbb_key
     const navigate = useNavigate()
@@ -13,9 +15,14 @@ const AddProducts = () => {
     const { data: categories, isLoading } = useQuery({
         queryKey: ['category'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/categories')
-            const data = await res.json()
-            return data
+            try {
+                const res = await fetch('http://localhost:5000/categories')
+                const data = await res.json()
+                return data
+            }
+            catch (err) {
+                console.log(err)
+            }
         }
     })
 
@@ -32,7 +39,9 @@ const AddProducts = () => {
             .then(imgData => {
                 if (imgData.success) {
                     const product = {
-                        name: data.name,
+                        sellerName: data.name,
+                        email: data.email,
+                        name: data.model,
                         price: data.price,
                         category: data.category,
                         condition: data.condition,
@@ -69,12 +78,30 @@ const AddProducts = () => {
             <form className='flex flex-col justify-center items-center max-w-full' onSubmit={handleSubmit(handleAddProduct)}>
                 <div className="form-control w-96">
                     <label className="label">
+                        <span className="label-text">Seller Name</span>
+                    </label>
+                    <input type="text"
+                        placeholder="Seller Name"
+                        className="input input-bordered w-96"
+                        {...register("name")} defaultValue={user?.displayName} readOnly />
+                </div>
+                <div className="form-control w-96">
+                    <label className="label">
+                        <span className="label-text">Seller Email</span>
+                    </label>
+                    <input type="text"
+                        placeholder="Seller Email"
+                        className="input input-bordered w-96"
+                        {...register("email")} defaultValue={user?.email} readOnly />
+                </div>
+                <div className="form-control w-96">
+                    <label className="label">
                         <span className="label-text">Product Name</span>
                     </label>
                     <input type="text"
                         placeholder="Product Name"
                         className="input input-bordered w-96"
-                        {...register("name")} />
+                        {...register("model")} />
                 </div>
                 <div className="form-control w-96">
                     <label className="label">

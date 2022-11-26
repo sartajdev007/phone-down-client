@@ -4,9 +4,10 @@ import { useContext } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
+import Loader from '../../shared/Loader';
 
 const Register = () => {
-    const { createUser, updateUserProfile } = useContext(AuthContext)
+    const { createUser, updateUserProfile, loading } = useContext(AuthContext)
     const [error, setError] = useState('')
     const navigate = useNavigate()
 
@@ -67,6 +68,10 @@ const Register = () => {
                     navigate('/')
                 }
             })
+    }
+
+    if (loading) {
+        return <Loader></Loader>
     }
 
 
