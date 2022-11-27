@@ -1,14 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
 import { AuthContext } from '../../context/AuthProvider';
+import Loader from '../../shared/Loader';
 
 const MyProducts = () => {
-    const { user } = useContext(AuthContext)
-    const { data: products = [] } = useQuery({
+    const { user, loading } = useContext(AuthContext)
+    const { data: products = [], refetch } = useQuery({
         queryKey: ['products', user?.email],
         queryFn: async () => {
             try {
-                const res = await fetch(`http://localhost:5000/products?email=${user?.email}`, {
+                const res = await fetch(`http://localhost:5000/myproducts?email=${user?.email}`, {
                     headers: {
                         authorization: `bearer ${localStorage.getItem('accessToken')}`
                     }
@@ -22,6 +24,28 @@ const MyProducts = () => {
         }
     })
 
+    const handleAdvertise = id => {
+        fetch(`http://localhost:5000/myproducts/${id}`, {
+            method: 'PUT',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount > 0) {
+                    toast.success('Product Added')
+                    refetch()
+                }
+            })
+    }
+
+
+
+    if (loading) {
+        return <Loader></Loader>
+    }
+
     return (
         <div>
             <h1 className='text-5xl'>My Products</h1>
@@ -33,7 +57,6 @@ const MyProducts = () => {
                             <th></th>
                             <th>Image</th>
                             <th>Model</th>
-                            <th>Category</th>
                             <th>Advertise</th>
                             <th>Delete</th>
                         </tr>
@@ -51,8 +74,7 @@ const MyProducts = () => {
                                         </div>
                                     </td>
                                     <td>{product.name}</td>
-                                    <td>{product.category}</td>
-                                    <td><button className='btn btn-xs bg-blue-400'>Advertise</button></td>
+                                    <td><button onClick={() => handleAdvertise(product._id)} className={product.advertised ? 'btn btn-ghost' : 'btn btn-xs bg-blue-400'}>{product.advertised ? 'Advertised' : 'Advertise'}</button></td>
                                     <td><button className='btn btn-xs bg-red-400'>Delete</button></td>
                                 </tr>)
                         }

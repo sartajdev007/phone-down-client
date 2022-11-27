@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../layout/DashboardLayout";
 import Main from "../layout/Main";
+import CategoryCollections from "../pages/CategoryCollections/CategoryCollections";
 import AddProducts from "../pages/Dashboard/AddProducts";
 import AllBuyers from "../pages/Dashboard/AllBuyers";
 import AllSellers from "../pages/Dashboard/AllSellers";
@@ -28,6 +29,11 @@ const router = createBrowserRouter([
             {
                 path: '/register',
                 element: <Register></Register>,
+            },
+            {
+                path: '/categories/:id',
+                element: <CategoryCollections></CategoryCollections>,
+                loader: ({ params }) => fetch(`http://localhost:5000/categories/${params.id}`)
             }
         ]
     },

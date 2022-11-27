@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import moment from 'moment/moment';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
@@ -47,7 +48,10 @@ const AddProducts = () => {
                         condition: data.condition,
                         location: data.location,
                         details: data.description,
-                        image: imgData.data.url
+                        image: imgData.data.url,
+                        date: moment(new Date()).format('DD/MM/YYYY'),
+                        status: 1,
+                        advertised: false,
                     }
                     // add product to db
                     fetch('http://localhost:5000/products', {
