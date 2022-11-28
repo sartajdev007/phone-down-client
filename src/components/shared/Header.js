@@ -9,7 +9,9 @@ const Header = () => {
 
     const handleLogOut = () => {
         logOut()
-            .then(() => { })
+            .then(() => {
+                localStorage.removeItem('accessToken')
+            })
             .catch(err => console.log(err))
     }
 

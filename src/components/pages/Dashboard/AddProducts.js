@@ -12,7 +12,6 @@ const AddProducts = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const imgHostKey = process.env.REACT_APP_imgbb_key
     const navigate = useNavigate()
-
     const { data: categories, isLoading } = useQuery({
         queryKey: ['category'],
         queryFn: async () => {
@@ -21,8 +20,8 @@ const AddProducts = () => {
                 const data = await res.json()
                 return data
             }
-            catch (err) {
-                console.log(err)
+            catch (errors) {
+                console.log(errors)
             }
         }
     })
@@ -50,8 +49,9 @@ const AddProducts = () => {
                         details: data.description,
                         image: imgData.data.url,
                         date: moment(new Date()).format('DD/MM/YYYY'),
-                        status: 1,
+                        status: 0,
                         advertised: false,
+                        verifiedSeller: false,
                     }
                     // add product to db
                     fetch('http://localhost:5000/products', {

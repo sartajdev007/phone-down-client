@@ -17,4 +17,4 @@ const useToken = email => {
     return [token]
 }
 
-export default useToken
+export default useToken;

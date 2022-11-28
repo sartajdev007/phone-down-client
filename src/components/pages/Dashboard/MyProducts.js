@@ -57,6 +57,7 @@ const MyProducts = () => {
                             <th></th>
                             <th>Image</th>
                             <th>Model</th>
+                            <th>Status</th>
                             <th>Advertise</th>
                             <th>Delete</th>
                         </tr>
@@ -74,6 +75,7 @@ const MyProducts = () => {
                                         </div>
                                     </td>
                                     <td>{product.name}</td>
+                                    <td>{product.status ? <span>Booked</span> : <span>Unsold</span>}</td>
                                     <td><button onClick={() => handleAdvertise(product._id)} className={product.advertised ? 'btn btn-ghost' : 'btn btn-xs bg-blue-400'}>{product.advertised ? 'Advertised' : 'Advertise'}</button></td>
                                     <td><button className='btn btn-xs bg-red-400'>Delete</button></td>
                                 </tr>)
