@@ -1,11 +1,21 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext } from 'react';
-import toast from 'react-hot-toast';
+import React, { useContext, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { AuthContext } from '../../context/AuthProvider';
+import ConfirmModal from '../../shared/ConfirmModal';
 import Loader from '../../shared/Loader';
 
 const MyProducts = () => {
     const { user, loading } = useContext(AuthContext)
+    const [deleteProduct, setDeleteProduct] = useState(null)
+
+    const closeModal = () => {
+        setDeleteProduct(null)
+    }
+
+
+
+
     const { data: products = [], refetch } = useQuery({
         queryKey: ['products', user?.email],
         queryFn: async () => {
@@ -34,12 +44,26 @@ const MyProducts = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.modifiedCount > 0) {
-                    toast.success('Product Added')
+                    toast.success('Product Advertised')
                     refetch()
                 }
             })
     }
-
+    const handleDeleteProduct = product => {
+        fetch(`http://localhost:5000/myproducts/${product._id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    toast.success('Product Deleted')
+                    refetch()
+                }
+            })
+    }
 
 
     if (loading) {
@@ -76,13 +100,31 @@ const MyProducts = () => {
                                     </td>
                                     <td>{product.name}</td>
                                     <td>{product.status ? <span>Booked</span> : <span>Unsold</span>}</td>
-                                    <td><button onClick={() => handleAdvertise(product._id)} className={product.advertised ? 'btn btn-ghost' : 'btn btn-xs bg-blue-400'}>{product.advertised ? 'Advertised' : 'Advertise'}</button></td>
-                                    <td><button className='btn btn-xs bg-red-400'>Delete</button></td>
+                                    <td>{
+                                        !product.status ?
+                                            <button onClick={() => handleAdvertise(product._id)} className={product.advertised ? 'btn btn-ghost' : 'btn btn-xs bg-blue-400'}>{product.advertised ? 'Advertised' : 'Advertise'}</button>
+                                            :
+                                            <button className='btn' disabled>Advertise</button>
+                                    }
+                                    </td>
+                                    <td><button onClick={() => setDeleteProduct(product)} className='btn btn-xs bg-red-400'>Delete</button></td>
+                                    <Toaster></Toaster>
                                 </tr>)
                         }
                     </tbody>
                 </table>
             </div>
+            {
+                deleteProduct && <ConfirmModal
+                    title={'Are you sure to delete?'}
+                    message={`If you delete seller : ${deleteProduct.name},it can't be undone`}
+                    successAction={handleDeleteProduct}
+                    successBtnName='Delete'
+                    modalData={deleteProduct}
+                    closeModal={closeModal}
+                >
+                </ConfirmModal>
+            }
         </div>
     );
 };

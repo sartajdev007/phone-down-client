@@ -3,8 +3,6 @@ import toast, { Toaster } from 'react-hot-toast';
 import Loader from '../../shared/Loader';
 
 const BookingModal = ({ product, setProduct, user, loading }) => {
-    console.log(product)
-
     const handleBooking = (e, product) => {
         e.preventDefault()
         const form = e.target;

@@ -67,7 +67,8 @@ const Header = () => {
                 {
                     user?.uid ?
                         <>
-                            <Link to='/dashboard' className='btn'>Dashboard</Link>
+                            <span className='text-lg'>{user?.displayName}</span>
+                            <Link to='/dashboard' className='btn btn-ghost'>Dashboard</Link>
                             <Link><button onClick={handleLogOut} className='btn'>Log Out</button></Link>
                         </>
                         :

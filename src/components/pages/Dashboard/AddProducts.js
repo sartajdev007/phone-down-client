@@ -64,7 +64,7 @@ const AddProducts = () => {
                         .then(res => res.json())
                         .then(result => {
                             if (result.acknowledged) {
-                                toast.success(`${data.name} is added in the shop`)
+                                toast.success(`${data.model} is added in the shop`)
                                 navigate('/dashboard/myproducts')
                             }
                         })

@@ -1,6 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthProvider';
+import Loader from '../../shared/Loader';
+import BookingModal from '../CategoryCollections/BookingModal';
 
 
 const Advertisement = () => {
@@ -38,9 +42,9 @@ const Advertisement = () => {
         }
     };
 
+
     return (
-        <div className='mt-10'>
-            <h1 className='my-15 text-5xl font-bold'>Advertised</h1>
+        <div>
             <Carousel
                 responsive={responsive}
                 swipeable={false}
@@ -56,20 +60,23 @@ const Advertisement = () => {
             >
                 {
                     products.filter(product => !product.status).filter(product => product.advertised).map(product =>
+
                         <div key={product._id} className="card w-96 bg-base-100 shadow-xl image-full">
                             <figure><img className='max-w-[200px] max-h-[200px]' src={product.image} alt='' /></figure>
                             <div className="card-body">
-                                <h2 className="card-title">{product.name}</h2>
-                                <p>If a dog chews shoes whose shoes does he choose?</p>
-                                <div className="card-actions justify-end">
-                                    <button className="btn btn-primary">Buy Now</button>
-                                </div>
+                                <h2 className='text-2xl font-semibold'>{product.name}</h2>
+                                <p>{product.details}</p>
+                                <p>Seller:{product.sellerName}</p>
+                                <p>Condition: {product.condition}</p>
+                                {/* <div className="card-actions justify-center">
+                                        <Link to='/login'><button className="btn btn-primary">Buy Now</button></Link>
+                                    </div> */}
                             </div>
                         </div>
                     )
                 }
             </Carousel>
-        </div>
+        </div >
     );
 };
 

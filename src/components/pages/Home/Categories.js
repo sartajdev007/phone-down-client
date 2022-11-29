@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -7,9 +8,18 @@ const Categories = () => {
 
 
     useEffect(() => {
-        fetch('http://localhost:5000/categories')
-            .then(res => res.json())
-            .then(data => setCategories(data))
+        axios.get('http://localhost:5000/categories')
+            .then(function (response) {
+                // handle success
+                setCategories(response.data);
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+            .then(function () {
+                // always executed
+            });
     }, [])
 
     return (
