@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import toast from 'react-hot-toast';
-import { useLoaderData } from 'react-router-dom';
 
 const AllBuyers = () => {
     const { data: allBuyers = [], refetch } = useQuery({
