@@ -48,7 +48,7 @@ const AddProducts = () => {
                         location: data.location,
                         details: data.description,
                         image: imgData.data.url,
-                        date: moment(new Date()).format('DD/MM/YYYY'),
+                        date: moment(new Date()).format('DD/MM/YYYY HH:mm'),
                         status: 0,
                         advertised: false,
                         verifiedSeller: false,
@@ -109,7 +109,7 @@ const AddProducts = () => {
                 </div>
                 <div className="form-control w-96">
                     <label className="label">
-                        <span className="label-text">Price</span>
+                        <span className="label-text">Resell Price</span>
                     </label>
                     <input type="text"
                         placeholder="Price"

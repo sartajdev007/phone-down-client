@@ -7,9 +7,8 @@ import { AuthContext } from '../../context/AuthProvider';
 import BookingModal from './BookingModal';
 
 const CategoryCollections = () => {
-    const { user, loading } = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
     const category = useLoaderData()
-    // const [categoryProducts, setCategoryProducts] = useState([])
     const [product, setProduct] = useState(null)
 
     const { data: categoryProducts = [], refetch } = useQuery({
@@ -31,17 +30,6 @@ const CategoryCollections = () => {
     })
 
 
-    // useEffect(() => {
-    //     fetch('http://localhost:5000/products', {
-    //         headers: {
-    //             authorization: `bearer ${localStorage.getItem('accessToken')}`
-    //         }
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             setCategoryProducts(data)
-    //         })
-    // }, [])
 
     const handleReport = product => {
         fetch(`http://localhost:5000/products/${product._id}`, {
@@ -72,7 +60,7 @@ const CategoryCollections = () => {
                                 <h2>{product.name}</h2>
                                 <p>{product.details}</p>
                                 <div className=''>
-                                    <p className='font-semibold'>Price:${product.price}</p>
+                                    <p className='font-semibold'>Resell Price:${product.price}</p>
                                     <br />
                                     <p className='font-semibold'>Condition:{product.condition}</p>
                                     <br />
@@ -98,7 +86,7 @@ const CategoryCollections = () => {
                     product={product}
                     setProduct={setProduct}
                     user={user}
-                    loading={loading}
+                    refetch={refetch}
                 ></BookingModal>
             }
         </div>

@@ -30,7 +30,7 @@ const Categories = () => {
                 {
                     categories.map(category =>
                         <div key={category.category_id} className="card w-96 glass shadow-xl shadow-emerald-100">
-                            <figure className='bg-base-300 p-3'><img className='max-w-[300px]' src={category.img} alt="" /></figure>
+                            <figure className='bg-base-300 p-3'><img className='w-[300px] h-[150px]' src={category.img} alt="" /></figure>
                             <div className="card-body">
                                 <h2 className='text-3xl font-bold'>{category.name}</h2>
                                 <div className="card-actions justify-center">

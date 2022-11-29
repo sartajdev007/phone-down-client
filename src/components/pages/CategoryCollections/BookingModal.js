@@ -1,8 +1,9 @@
+import moment from 'moment';
 import React from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import Loader from '../../shared/Loader';
 
-const BookingModal = ({ product, setProduct, user, loading }) => {
+const BookingModal = ({ product, setProduct, user, refetch }) => {
     const handleBooking = (e, product) => {
         e.preventDefault()
         const form = e.target;
@@ -16,8 +17,10 @@ const BookingModal = ({ product, setProduct, user, loading }) => {
             name: product.name,
             seller: product.email,
             price: product.price,
+            image: product.image,
             category: product.category,
             condition: product.condition,
+            date: moment(new Date()).format('DD/MM/YYYY HH:mm'),
             status: 1,
             phone,
             location,
@@ -52,14 +55,12 @@ const BookingModal = ({ product, setProduct, user, loading }) => {
                 if (data.acknowledged) {
                     setProduct(null)
                     toast.success('Booking Successful')
+                    refetch()
                 }
             })
         setProduct(null)
     }
 
-    if (loading) {
-        return <Loader></Loader>
-    }
 
 
     return (
@@ -76,7 +77,7 @@ const BookingModal = ({ product, setProduct, user, loading }) => {
                             <input type="text" name='productName' value={product?.name} className="input w-full input-bordered" readOnly />
                         </div>
                         <div>
-                            <label htmlFor="price">Price</label>
+                            <label htmlFor="price">Resell Price</label>
                             <input type="text" name='price' value={product?.price} className="input w-full input-bordered" readOnly />
                         </div>
                         <div>

@@ -24,57 +24,41 @@ const Header = () => {
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                     </label>
                     <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                        <li><Link>Item 1</Link></li>
-                        <li tabIndex={0}>
-                            <Link className="justify-between">
-                                Categories
-                                <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" /></svg>
-                            </Link>
-                            <ul className="p-2">
-                                <li><Link>Submenu 1</Link></li>
-                                <li><Link>Submenu 2</Link></li>
-                                <li><Link>Submenu 2</Link></li>
-                            </ul>
+                        <li><button className="btn btn-ghost rounded-lg"><Link to='/'>Home</Link></button></li>
+                        <li>
+                            {
+                                user?.uid &&
+                                <button className="btn btn-ghost rounded-lg"><Link to='/dashboard'>Dashboard</Link></button>
+                            }
                         </li>
-                        <li><Link>Item 3</Link></li>
+                        <li><button className="btn btn-accent rounded-lg"><Link>Blogs</Link></button></li>
                     </ul>
                 </div>
                 <Link to='/' className="btn btn-ghost normal-case text-xl"><FcSmartphoneTablet></FcSmartphoneTablet>Phone<span>Down</span></Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
-                    <li><Link>Item 1</Link></li>
-                    <li tabIndex={0}>
-                        <Link>
-                            Parent
-                            <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>
-                        </Link>
-                        <ul className="p-2">
-                            <li><Link>Submenu 1</Link></li>
-                            <li><Link>Submenu 2</Link></li>
-                        </ul>
+                    <li><button className="btn btn-ghost rounded-lg"><Link to='/'>Home</Link></button></li>
+                    <li>
+                        {
+                            user?.uid &&
+                            <button className="btn btn-ghost rounded-lg"><Link to='/dashboard'>Dashboard</Link></button>
+                        }
                     </li>
-                    <li><Link>Item 3</Link></li>
-                    {
-                        user?.role === 'seller' &&
-                        <>
-                            <li><Link>Add Products</Link></li>
-                        </>
-                    }
+                    <li><button className="btn btn-ghost rounded-lg"><Link>Blogs</Link></button></li>
                 </ul>
             </div>
             <div className="navbar-end gap-3">
                 {
                     user?.uid ?
                         <>
-                            <span className='text-lg'>{user?.displayName}</span>
-                            <Link to='/dashboard' className='btn btn-ghost'>Dashboard</Link>
-                            <Link><button onClick={handleLogOut} className='btn'>Log Out</button></Link>
+                            <p className='text-lg pr-3 font-semibold  text-teal-500'><span className='text-black p-2'>Welcome</span> {user?.displayName}</p>
+                            <Link><button onClick={handleLogOut} className='btn btn-outline hover:bg-red-500'>Log Out</button></Link>
                         </>
                         :
                         <>
-                            <Link to='/login' className="btn">Login</Link>
-                            <Link to='/register' className="btn">Register</Link>
+                            <Link to='/login' className="btn btn-outline hover:bg-emerald-500">Login</Link>
+                            <Link to='/register' className="btn btn-outline hover:bg-emerald-500">Register</Link>
                         </>
                 }
             </div>
