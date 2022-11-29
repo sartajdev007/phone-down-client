@@ -1,8 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
-import toast from 'react-hot-toast';
 import { AuthContext } from '../../context/AuthProvider';
-import Loader from '../../shared/Loader';
 
 const MyOrders = () => {
     const { user, loading } = useContext(AuthContext)

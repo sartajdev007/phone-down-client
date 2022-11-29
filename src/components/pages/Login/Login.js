@@ -41,14 +41,48 @@ const Login = () => {
         googleLogin()
             .then(result => {
                 const user = result.user;
-                console.log(user)
-                setLoginEmail(user.email)
-                navigate(from, { replace: true })
+                const googleUser = { name: user.displayName, email: user.email }
+
+                fetch(`http://localhost:5000/users/${googleUser.email}`, {
+                    method: 'PUT',
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data)
+                    });
+
+                fetch('http://localhost:5000/users', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(googleUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data)
+                        getUserToken(googleUser.email)
+                        navigate(from, { replace: true })
+                    })
             })
             .catch(error => {
                 console.error(error)
             })
     }
+
+    const getUserToken = email => {
+        fetch(`http://localhost:5000/jwt?email=${email}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.accessToken) {
+                    localStorage.setItem('accessToken', data.accessToken)
+                    navigate('/')
+                }
+            })
+    }
+
+
+
 
     return (
         <div>

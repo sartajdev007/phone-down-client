@@ -13,6 +13,7 @@ import ReportedProducts from "../pages/Dashboard/ReportedProducts";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Login/Register";
+import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/categories/:id',
-                element: <CategoryCollections></CategoryCollections>,
+                element: <PrivateRoute><CategoryCollections></CategoryCollections></PrivateRoute>,
                 loader: ({ params }) => fetch(`http://localhost:5000/categories/${params.id}`)
             }
         ]
@@ -50,7 +51,7 @@ const router = createBrowserRouter([
 
             {
                 path: '/dashboard/allusers',
-                element: <AllUsers></AllUsers>
+                element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
             },
 
             {

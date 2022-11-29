@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import { useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider';
 import Loader from '../../shared/Loader';
 import { TiTick } from "react-icons/ti"
