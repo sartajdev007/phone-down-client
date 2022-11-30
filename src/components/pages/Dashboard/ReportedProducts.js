@@ -14,7 +14,7 @@ const ReportedProducts = () => {
         queryKey: ['products'],
         queryFn: async () => {
             try {
-                const res = await fetch(`http://localhost:5000/products`, {
+                const res = await fetch(`https://phone-down-server.vercel.app/products`, {
                     headers: {
                         authorization: `bearer ${localStorage.getItem('accessToken')}`
                     }
@@ -29,7 +29,7 @@ const ReportedProducts = () => {
     })
 
     const handleDeleteReportedProduct = product => {
-        fetch(`http://localhost:5000/reported/${product._id}`, {
+        fetch(`https://phone-down-server.vercel.app/reported/${product._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`

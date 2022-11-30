@@ -28,7 +28,7 @@ const BookingModal = ({ product, setProduct, user, refetch }) => {
             buyerEmail
         }
 
-        fetch(`http://localhost:5000/bookings/${product._id}`, {
+        fetch(`https://phone-down-server.vercel.app/bookings/${product._id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -41,7 +41,7 @@ const BookingModal = ({ product, setProduct, user, refetch }) => {
             })
 
 
-        fetch('http://localhost:5000/bookings', {
+        fetch('https://phone-down-server.vercel.app/bookings', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

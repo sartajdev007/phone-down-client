@@ -17,7 +17,7 @@ const MyProducts = () => {
         queryKey: ['products', user?.email],
         queryFn: async () => {
             try {
-                const res = await fetch(`http://localhost:5000/myproducts?email=${user?.email}`, {
+                const res = await fetch(`https://phone-down-server.vercel.app/myproducts?email=${user?.email}`, {
                     headers: {
                         authorization: `bearer ${localStorage.getItem('accessToken')}`
                     }
@@ -32,7 +32,7 @@ const MyProducts = () => {
     })
 
     const handleAdvertise = id => {
-        fetch(`http://localhost:5000/myproducts/${id}`, {
+        fetch(`https://phone-down-server.vercel.app/myproducts/${id}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -47,7 +47,7 @@ const MyProducts = () => {
             })
     }
     const handleDeleteProduct = product => {
-        fetch(`http://localhost:5000/myproducts/${product._id}`, {
+        fetch(`https://phone-down-server.vercel.app/myproducts/${product._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`

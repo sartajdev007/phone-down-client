@@ -18,7 +18,7 @@ const AllSellers = () => {
         queryKey: ['allSellers'],
         queryFn: async () => {
             try {
-                const res = await fetch(`http://localhost:5000/users/allsellers`)
+                const res = await fetch(`https://phone-down-server.vercel.app/users/allsellers`)
                 const data = await res.json()
                 return data
             }
@@ -31,7 +31,7 @@ const AllSellers = () => {
 
 
     const handleMakeAdmin = id => {
-        fetch(`http://localhost:5000/users/admin/${id}`, {
+        fetch(`https://phone-down-server.vercel.app/users/admin/${id}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -47,7 +47,7 @@ const AllSellers = () => {
     }
 
     const handleVerify = seller => {
-        fetch(`http://localhost:5000/products?email=${seller.email}`, {
+        fetch(`https://phone-down-server.vercel.app/products?email=${seller.email}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -58,7 +58,7 @@ const AllSellers = () => {
                 console.log(data)
             })
 
-        fetch(`http://localhost:5000/users/allsellers/${seller._id}`, {
+        fetch(`https://phone-down-server.vercel.app/users/allsellers/${seller._id}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -74,7 +74,7 @@ const AllSellers = () => {
     }
 
     const handleDeleteSeller = seller => {
-        fetch(`http://localhost:5000/users/allsellers/${seller._id}`, {
+        fetch(`https://phone-down-server.vercel.app/users/allsellers/${seller._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`

@@ -43,7 +43,7 @@ const Login = () => {
                 const user = result.user;
                 const googleUser = { name: user.displayName, email: user.email }
 
-                fetch(`http://localhost:5000/users/${googleUser.email}`, {
+                fetch(`https://phone-down-server.vercel.app/users/${googleUser.email}`, {
                     method: 'PUT',
                 })
                     .then(res => res.json())
@@ -51,7 +51,7 @@ const Login = () => {
                         console.log(data)
                     });
 
-                fetch('http://localhost:5000/users', {
+                fetch('https://phone-down-server.vercel.app/users', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -71,7 +71,7 @@ const Login = () => {
     }
 
     const getUserToken = email => {
-        fetch(`http://localhost:5000/jwt?email=${email}`)
+        fetch(`https://phone-down-server.vercel.app/jwt?email=${email}`)
             .then(res => res.json())
             .then(data => {
                 if (data.accessToken) {

@@ -10,7 +10,7 @@ const MyOrders = () => {
         queryKey: ['bookings', user?.email],
         queryFn: async () => {
             try {
-                const res = await fetch(`http://localhost:5000/myorders?email=${user?.email}`, {
+                const res = await fetch(`https://phone-down-server.vercel.app/myorders?email=${user?.email}`, {
                     headers: {
                         authorization: `bearer ${localStorage.getItem('accessToken')}`
                     }

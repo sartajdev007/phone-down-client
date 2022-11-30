@@ -15,7 +15,7 @@ const CategoryCollections = () => {
         queryKey: ['categoryProducts'],
         queryFn: async () => {
             try {
-                const res = await fetch('http://localhost:5000/products', {
+                const res = await fetch('https://phone-down-server.vercel.app/products', {
                     headers: {
                         authorization: `bearer ${localStorage.getItem('accessToken')}`
                     }
@@ -32,7 +32,7 @@ const CategoryCollections = () => {
 
 
     const handleReport = product => {
-        fetch(`http://localhost:5000/products/${product._id}`, {
+        fetch(`https://phone-down-server.vercel.app/products/${product._id}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`

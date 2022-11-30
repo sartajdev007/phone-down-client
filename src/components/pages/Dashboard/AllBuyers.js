@@ -16,7 +16,7 @@ const AllBuyers = () => {
         queryKey: ['allBuyers'],
         queryFn: async () => {
             try {
-                const res = await fetch(`http://localhost:5000/users/allBuyers`)
+                const res = await fetch(`https://phone-down-server.vercel.app/users/allBuyers`)
                 const data = await res.json()
                 return data
             }
@@ -27,7 +27,7 @@ const AllBuyers = () => {
     })
 
     const handleMakeAdmin = id => {
-        fetch(`http://localhost:5000/users/admin/${id}`, {
+        fetch(`https://phone-down-server.vercel.app/users/admin/${id}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -43,7 +43,7 @@ const AllBuyers = () => {
     }
 
     const handleDeleteBuyer = buyer => {
-        fetch(`http://localhost:5000/users/allsellers/${buyer._id}`, {
+        fetch(`https://phone-down-server.vercel.app/users/allsellers/${buyer._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
