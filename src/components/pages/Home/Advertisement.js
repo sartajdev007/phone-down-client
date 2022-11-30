@@ -1,10 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import { Link } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthProvider';
-import Loader from '../../shared/Loader';
-import BookingModal from '../CategoryCollections/BookingModal';
 
 
 const Advertisement = () => {
@@ -33,18 +29,18 @@ const Advertisement = () => {
             items: 3
         },
         tablet: {
-            breakpoint: { max: 1024, min: 464 },
+            breakpoint: { max: 1024, min: 768 },
             items: 2
         },
         mobile: {
-            breakpoint: { max: 464, min: 0 },
+            breakpoint: { max: 768, min: 0 },
             items: 1
         }
     };
 
 
     return (
-        <div>
+        <div className='grid grid-cols-1'>
             <Carousel
                 responsive={responsive}
                 swipeable={false}
@@ -71,9 +67,6 @@ const Advertisement = () => {
                                 <p>{product.details}</p>
                                 <p>Seller:{product.sellerName}</p>
                                 <p>Condition: {product.condition}</p>
-                                {/* <div className="card-actions justify-center">
-                                        <Link to='/login'><button className="btn btn-primary">Buy Now</button></Link>
-                                    </div> */}
                             </div>
                         </div>
                     )
