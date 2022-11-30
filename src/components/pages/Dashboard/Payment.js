@@ -12,10 +12,10 @@ const Payment = () => {
     console.log(bookingData)
 
     return (
-        <div>
-            <h1 className='text-5xl'>Pay for {bookingData.name}</h1>
-            <p className='text-xl'>Amount: <strong>${bookingData.price}</strong></p>
-            <div className="w-96 mt-10 border-2 p-3">
+        <div className='mt-10'>
+            <h1 className='text-3xl font-semibold text-emerald-500'>Pay for {bookingData.name}</h1>
+            <p className='text-xl text-red-400 font-semibold'>Amount: <strong>${bookingData.price}</strong></p>
+            <div className="w-[700px] mx-auto mt-10 p-10 border-2 border-teal-200 shadow-lg shadow-emerald-200">
                 <Elements stripe={stripePromise}>
                     <CheckOutForm
                         booking={bookingData}

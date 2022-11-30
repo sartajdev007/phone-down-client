@@ -31,7 +31,7 @@ const Header = () => {
                                 <button className="btn btn-ghost rounded-lg"><Link to='/dashboard'>Dashboard</Link></button>
                             }
                         </li>
-                        <li><button className="btn btn-accent rounded-lg"><Link>Blogs</Link></button></li>
+                        <li><button className="btn btn-accent rounded-lg"><Link to='/blogs'>Blogs</Link></button></li>
                     </ul>
                 </div>
                 <Link to='/' className="btn btn-ghost normal-case text-xl"><FcSmartphoneTablet></FcSmartphoneTablet>Phone<span>Down</span></Link>
@@ -45,7 +45,7 @@ const Header = () => {
                             <button className="btn btn-ghost rounded-lg"><Link to='/dashboard'>Dashboard</Link></button>
                         }
                     </li>
-                    <li><button className="btn btn-ghost rounded-lg"><Link>Blogs</Link></button></li>
+                    <li><button className="btn btn-ghost rounded-lg"><Link to='/blogs'>Blogs</Link></button></li>
                 </ul>
             </div>
             <div className="navbar-end gap-3">

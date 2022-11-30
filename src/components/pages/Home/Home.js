@@ -4,6 +4,7 @@ import Loader from '../../shared/Loader';
 import Advertisement from './Advertisement';
 import Banner from './Banner';
 import Categories from './Categories';
+import Features from './Features';
 
 
 const Home = () => {
@@ -18,6 +19,7 @@ const Home = () => {
             <Banner></Banner>
             <Advertisement></Advertisement>
             <Categories></Categories>
+            <Features></Features>
         </div>
     );
 };

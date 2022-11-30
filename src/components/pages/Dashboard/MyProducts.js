@@ -13,9 +13,6 @@ const MyProducts = () => {
         setDeleteProduct(null)
     }
 
-
-
-
     const { data: products = [], refetch } = useQuery({
         queryKey: ['products', user?.email],
         queryFn: async () => {
@@ -65,15 +62,15 @@ const MyProducts = () => {
             })
     }
 
-
     if (loading) {
         return <Loader></Loader>
     }
 
+
     return (
         <div>
-            <h1 className='text-5xl'>My Products</h1>
-            <div className="overflow-x-auto mt-4">
+            <h1 className='text-5xl font-bold text-emerald-500'>My Products</h1>
+            <div className="overflow-x-auto mt-5">
                 <table className="table w-full">
 
                     <thead>
@@ -102,13 +99,12 @@ const MyProducts = () => {
                                     <td>{product.status ? <span>Booked</span> : <span>Unsold</span>}</td>
                                     <td>{
                                         !product.status ?
-                                            <button onClick={() => handleAdvertise(product._id)} className={product.advertised ? 'btn btn-ghost' : 'btn btn-xs bg-blue-400'}>{product.advertised ? 'Advertised' : 'Advertise'}</button>
+                                            <button onClick={() => handleAdvertise(product._id)} className={product.advertised ? 'btn btn-ghost btn-xs' : 'btn btn-xs bg-blue-400'}>{product.advertised ? 'Advertised' : 'Advertise'}</button>
                                             :
-                                            <button className='btn' disabled>Advertise</button>
+                                            <button className='btn btn-sm' disabled>Advertise</button>
                                     }
                                     </td>
-                                    <td><button onClick={() => setDeleteProduct(product)} className='btn btn-xs bg-red-400'>Delete</button></td>
-                                    <Toaster></Toaster>
+                                    <td><label onClick={() => setDeleteProduct(product)} htmlFor="confirm-modal" className='btn btn-xs bg-red-400'>Delete</label></td>
                                 </tr>)
                         }
                     </tbody>
@@ -117,7 +113,7 @@ const MyProducts = () => {
             {
                 deleteProduct && <ConfirmModal
                     title={'Are you sure to delete?'}
-                    message={`If you delete seller : ${deleteProduct.name},it can't be undone`}
+                    message={`If you delete product : ${deleteProduct.name},it can't be undone`}
                     successAction={handleDeleteProduct}
                     successBtnName='Delete'
                     modalData={deleteProduct}
@@ -125,6 +121,7 @@ const MyProducts = () => {
                 >
                 </ConfirmModal>
             }
+            <Toaster></Toaster>
         </div>
     );
 };

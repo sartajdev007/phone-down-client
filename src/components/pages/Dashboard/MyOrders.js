@@ -30,7 +30,7 @@ const MyOrders = () => {
 
     return (
         <div>
-            <h1 className='text-5xl'>My Products: {bookings.length}</h1>
+            <h1 className='text-5xl text-teal-500 font-bold'>My Orders</h1>
             <div className="overflow-x-auto mt-4">
                 <table className="table w-full">
 

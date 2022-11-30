@@ -1,6 +1,7 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import Loader from '../../shared/Loader';
 
 const CheckOutForm = ({ booking }) => {
@@ -12,6 +13,7 @@ const CheckOutForm = ({ booking }) => {
     const stripe = useStripe()
     const elements = useElements()
     const { price, buyerName, buyerEmail, _id } = booking
+    const navigate = useNavigate()
 
 
     useEffect(() => {
@@ -94,6 +96,7 @@ const CheckOutForm = ({ booking }) => {
                     if (data.insertedId) {
                         setSuccess('Congrats! Your payment is success')
                         setTrxId(paymentIntent.id)
+                        navigate('/dashboard')
                     }
                 })
         }
@@ -123,7 +126,7 @@ const CheckOutForm = ({ booking }) => {
                     },
                 }}
             />
-            <button className='btn btn-sm mt-4 btn-accent' type="submit" disabled={!stripe || !clientSecret || processing}>
+            <button className='btn btn-sm mt-16 btn-accent' type="submit" disabled={!stripe || !clientSecret || processing}>
                 Pay
             </button>
             <p className='text-red-500'>{cardError}</p>

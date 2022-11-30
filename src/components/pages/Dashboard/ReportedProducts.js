@@ -1,7 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import ConfirmModal from '../../shared/ConfirmModal';
 
 const ReportedProducts = () => {
+    const [deleteReportedProduct, setDeleteReportedProduct] = useState(null)
+
+    const closeModal = () => {
+        setDeleteReportedProduct(null)
+    }
+
     const { data: products = [], refetch } = useQuery({
         queryKey: ['products'],
         queryFn: async () => {
@@ -20,8 +28,8 @@ const ReportedProducts = () => {
         }
     })
 
-    const handleDeleteProduct = id => {
-        fetch(`http://localhost:5000/products/${id}`, {
+    const handleDeleteReportedProduct = product => {
+        fetch(`http://localhost:5000/reported/${product._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -39,10 +47,9 @@ const ReportedProducts = () => {
 
     return (
         <div>
-            <h1 className='text-5xl'>My Products</h1>
+            <h1 className='text-3xl font-bold text-red-600'>Reported Products</h1>
             <div className="overflow-x-auto mt-4">
                 <table className="table w-full">
-
                     <thead>
                         <tr>
                             <th></th>
@@ -66,13 +73,24 @@ const ReportedProducts = () => {
                                     </td>
                                     <td>{product.name}</td>
                                     <td>{product.sellerName}</td>
-                                    <td><button onClick={() => handleDeleteProduct(product._id)} className='btn btn-xs bg-red-400'>Delete</button></td>
+                                    <td><label onClick={() => setDeleteReportedProduct(product)} htmlFor="confirm-modal" className='btn btn-xs bg-red-400'>Delete</label></td>
                                     <Toaster></Toaster>
                                 </tr>)
                         }
                     </tbody>
                 </table>
             </div>
+            {
+                deleteReportedProduct && <ConfirmModal
+                    title={'Are you sure to delete?'}
+                    message={`If you delete reported : ${deleteReportedProduct.name},it can't be undone`}
+                    successAction={handleDeleteReportedProduct}
+                    successBtnName='Delete'
+                    modalData={deleteReportedProduct}
+                    closeModal={closeModal}
+                >
+                </ConfirmModal>
+            }
         </div>
     );
 };

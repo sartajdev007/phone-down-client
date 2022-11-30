@@ -17,21 +17,19 @@ const DashboardLayout = () => {
     return (
         <div>
             <Header></Header>
-            <div className="drawer drawer-mobile my-10">
+            <div className="drawer drawer-mobile">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content flex flex-col">
                     <Outlet></Outlet>
-                    <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open Dashboardm Drawer</label>
+                    <label htmlFor="my-drawer-2" className="btn bg-emerald-500 btn-sm border-0 drawer-button lg:hidden mt-4">Open Dashboard</label>
 
                 </div>
-                <div className="drawer-side">
+                <div className="bg-teal-200">
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-                    <ul className="menu p-4 w-80 bg-base-100 text-base-content">
-                        <li><Link to='/dashboard'>My dashboard</Link></li>
+                    <ul className="menu p-4 w-80 bg-teal-200 text-base-content font-semibold">
                         <>
                             {
                                 isAdmin && <>
-                                    <li><Link to='/dashboard/allusers'>All Users</Link></li>
                                     <li><Link to='/dashboard/allbuyers'>All Buyers</Link></li>
                                     <li><Link to='/dashboard/allsellers'>All Sellers</Link></li>
                                     <li><Link to='/dashboard/reported'>Reported Products</Link></li>

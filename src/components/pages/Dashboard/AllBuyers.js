@@ -62,9 +62,9 @@ const AllBuyers = () => {
 
     return (
         <div className='pt-4'>
-            <div className="overflow-x-auto">
+            <h1 className='text-3xl font-bold'>All <span className='text-emerald-500'>Buyers</span></h1>
+            <div className="overflow-x-auto mt-5">
                 <table className="table w-full">
-
                     <thead>
                         <tr>
                             <th></th>
@@ -72,6 +72,7 @@ const AllBuyers = () => {
                             <th>Email</th>
                             <th>Role</th>
                             <th>Admin Status</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -93,7 +94,7 @@ const AllBuyers = () => {
             {
                 deleteBuyer && <ConfirmModal
                     title={'Are you sure to delete?'}
-                    message={`If you delete seller : ${deleteBuyer.name},it can't be undone`}
+                    message={`If you delete buyer : ${deleteBuyer.name},it can't be undone`}
                     successAction={handleDeleteBuyer}
                     successBtnName='Delete'
                     modalData={deleteBuyer}

@@ -77,9 +77,9 @@ const AddProducts = () => {
         return <Loader></Loader>
     }
     return (
-        <div>
-            <h1 className='text-5xl'>Add Product</h1>
-            <form className='flex flex-col justify-center items-center max-w-full' onSubmit={handleSubmit(handleAddProduct)}>
+        <div className='flex flex-col justify-center items-center'>
+            <h1 className='text-5xl font-semibold text-emerald-500'>Add Product</h1>
+            <form className='flex flex-col justify-center items-center w-[800px] mt-5 border-2 border-green-400 p-2 shadow-xl shadow-emerald-300' onSubmit={handleSubmit(handleAddProduct)}>
                 <div className="form-control w-96">
                     <label className="label">
                         <span className="label-text">Seller Name</span>
@@ -176,7 +176,7 @@ const AddProducts = () => {
                         className="textarea textarea-bordered w-96"
                         {...register("description")} />
                 </div>
-                <input className='btn btn-accent mt-5' type="submit" value='Add Product' />
+                <input className='btn btn-outline mt-5 hover:bg-emerald-500' type="submit" value='Add Product' />
                 <Toaster></Toaster>
             </form>
         </div>

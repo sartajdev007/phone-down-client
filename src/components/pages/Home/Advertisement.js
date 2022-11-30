@@ -61,10 +61,13 @@ const Advertisement = () => {
                 {
                     products.filter(product => !product.status).filter(product => product.advertised).map(product =>
 
-                        <div key={product._id} className="card w-96 bg-base-100 shadow-xl image-full">
-                            <figure><img className='max-w-[200px] max-h-[200px]' src={product.image} alt='' /></figure>
+                        <div key={product._id} className="card w-96 bg-emerald-100 shadow-xl image-full shadow-emerald-200">
+                            <figure><img className='w-[200px] h-[200px]' src={product.image} alt='' /></figure>
                             <div className="card-body">
-                                <h2 className='text-2xl font-semibold'>{product.name}</h2>
+                                <div className='shadow-md border-2 border-emerald-200 rounded-lg'>
+                                    <h2 className='text-xl font-semibold'>Adverts.</h2>
+                                </div>
+                                <h2 className='text-2xl font-bold text-violet-300'>{product.name}</h2>
                                 <p>{product.details}</p>
                                 <p>Seller:{product.sellerName}</p>
                                 <p>Condition: {product.condition}</p>
